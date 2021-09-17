@@ -302,3 +302,138 @@ function replot() {
   
 }
 
+let tab1 = `
+<div class="col-xs-12 col-md-6 form-group">
+  <h3 class="simscreen-names">Fixed Costs</h3>
+  <ul>
+    <li class="input-li">
+        <label for="rent" class="cost-labels">Building Rent :</label>
+        <input class="form-control" type="number" id="rent" name="rent" placeholder="ex :- 10000">
+    </li>
+    <li class="input-li">
+        <label for="wages" class="cost-labels">Employee Wages :</label>
+        <input class="form-control" type="number" id="wages" name="wages" placeholder="ex :- 30000">
+    </li>
+    <li class="input-li">
+        <label for="otherFixed" class="cost-labels">Other Fixed Costs :</label>
+        <input class="form-control" type="number" id="otherFixed" name="otherFixed" placeholder="ex :- 25000">
+    </li>
+  </ul>
+  <div class="center"><button onclick="inputFixed()" type="button" class="btn btn-info btn-sm">Submit</button>
+  </div>
+  <div class="msg-container" id="fixedMsg"></div>
+</div>
+<div class="col-xs-12 col-md-6 form-group" id="variable-costs">
+  <h3 class="simscreen-names center">Variable Costs</h3>
+  <ul>
+    <li class="input-li">
+        <label for="raw" class="cost-labels">Raw Materials :</label>
+        <input class="form-control" type="number" id="raw" name="raw" placeholder="ex :- 2000">
+    </li>
+    <li class="input-li">
+        <label for="pack" class="cost-labels">Packaging :</label>
+        <input class="form-control" type="number" id="pack" name="pack" placeholder="ex :- 1000">
+    </li>
+    <li class="input-li">
+        <label for="otherVariable" class="cost-labels">Other Variable Costs :</label>
+        <input class="form-control" type="number" id="otherVariable" name="otherVariable" placeholder="ex :- 200">
+    </li>
+  </ul>
+  <div class="center">
+    <button type="button" class="btn btn-info btn-sm" onclick="inputVariable()">Submit</button>
+  </div>
+  <div class="msg-container" id="variableMsg"></div>
+</div>
+`
+
+
+let tab2 = `
+<div class="col-xs-12 col-md-6 form-group  center">
+  <ul>
+    <div id="cost-display"></div>
+    <li class="input-li">
+        <label for="sp">Selling Price per unit :</label>
+        <input type="number" id="sp" name="sp" placeholder="ex :- 2000">
+    </li>
+    <li class="input-li">
+        <label for="qty">Quantity sold :</label>
+        <input type="number" id="qty" name="qty" placeholder="ex :- 10">
+    </li>
+    <div class="msg-container" id="otherMsg"></div>
+  </ul>
+</div>
+<div class="col-xs-12 col-md-6 center">
+  <ul>
+    <li class="input-li">
+        <label for="calcRevenue">Total revenue :</label>
+        <input title="SellingPrice X Quantity" type="number" id="calcRevenue" name="calcRevenue">
+        <div class="msg-container" id="revenueMsg"></div>
+    </li>
+    <li class="input-li">
+        <label for="calcBEPUnits">BEP(in Units) :</label>
+        <input title="FixedCost/(SellingPrice-(VariableCost/Quantity))" type="number" id="calcBEPUnits"
+          name="calcBEPUnits">
+        <div class="msg-container" id="BEPUnitsMsg"></div>
+    </li>
+    <li class="input-li">
+        <label for="calcBEPSales">BEP(in Sales) :</label>
+        <input title="(FixedCost X Quantity)/(SellingPrice-(VariableCost/Quantity))" type="number" id="calcBEPSales"
+          name="calcBEPSales">
+        <div class="msg-container" id="BEPSalesMsg"></div>
+    </li>
+  </ul>
+</div>
+<div class="col-xs-12 col-md-12 center">
+  <button type="button" class="btn btn-info btn-sm" onclick="inputOthers()">Submit</button>
+</div>
+<div class="msg-container" id="variableMsg"></div>
+`
+
+let tab3 = `
+<p><span class="sub-heading">Break even point (in units) = </span><span id="bepInUnits"></span></p>
+<p><span class="sub-heading">Break even point (in sales) = Rs </span><span id="bepInSales"></span></p>
+<br>
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-6  chart-container"><canvas id="myChart"
+            style="height: 38rem; width:48rem; max-height:50%"></canvas></div>
+      <div class="col-xs-12 col-md-6  replot-container">
+          <p>To replot the graph, fill the following details :</p>
+          <li class="input-li">
+            <label for="fixed">Total fixed cost : </label>
+            <input type="number" id="fixed" name="fixed" placeholder="ex :- 5000">
+          </li>
+          <li class="input-li">
+            <label for="variable">Variable cost per unit : </label>
+            <input type="number" id="variable" name="variable" placeholder="ex :- 2">
+          </li>
+          <li class="input-li">
+            <label for="sp2">Selling Price : </label>
+            <input type="number" id="sp2" name="sp2" placeholder="ex :- 18">
+          </li>
+          <div class="center">
+            <button type="button" class="btn btn-info btn-md" onclick="replot()">Submit</button>
+          </div>
+          <div class="msg-container" id="replotvalMsg"></div>
+      </div>
+    </div>
+</div>
+`
+
+
+const setCalculationSection = function(ele){
+  console.log(ele.id);
+  showPopup(ele.id);
+}
+
+const showPopup = function(idd) {
+  if(idd === 'fixedVariableCost'){
+    document.getElementById("calculationSection").innerHTML = `<h3>Calculation</h3>${tab1}`;
+  }
+  if(idd === 'revenueProfit'){
+    document.getElementById("calculationSection").innerHTML = `<h3>Calculation</h3>${tab2}`;
+  }
+  if(idd === 'analysisGraph'){
+    document.getElementById("calculationSection").innerHTML = `<h3>Calculation</h3>${tab3}`;
+  }
+}
